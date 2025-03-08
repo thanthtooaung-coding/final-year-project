@@ -1,0 +1,154 @@
+<div class="agencies-container">
+    <div class="page-header">
+        <h1>Find the Perfect Agency</h1>
+        <p>Discover and connect with top-rated agencies in various specialties</p>
+    </div>
+
+    <div class="search-filter-section">
+        <div class="search-bar">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" [(ngModel)]="searchQuery" (ngModelChange)="applyFilters()"
+                placeholder="Search agencies by name, location, or specialty">
+        </div>
+
+        <div class="filter-controls">
+            <div class="filter-group">
+                <label>Category</label>
+                <select [(ngModel)]="selectedCategory" (ngModelChange)="applyFilters()">
+                    <option value="">All Categories</option>
+                    <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>Sort By</label>
+                <select [(ngModel)]="sortBy" (ngModelChange)="applyFilters()">
+                    <option value="rating">Highest Rated</option>
+                    <option value="reviewCount">Most Reviewed</option>
+                    <option value="name">Name (A-Z)</option>
+                </select>
+            </div>
+
+            <div class="filter-group filter-checkbox">
+                <input type="checkbox" id="verified" [(ngModel)]="onlyVerified" (ngModelChange)="applyFilters()">
+                <label for="verified">Verified Agencies Only</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="featured-agencies" *ngIf="featuredAgencies.length > 0">
+        <h2>Featured Agencies</h2>
+        <div class="featured-agencies-grid">
+            <div *ngFor="let agency of featuredAgencies" class="featured-agency-card"
+                [routerLink]="['/agency', agency.id]">
+                <div class="featured-agency-cover">
+                    <img [src]="agency.coverUrl" [alt]="agency.name + ' cover'">
+                    <div class="featured-badge">Featured</div>
+                </div>
+                <div class="featured-agency-content">
+                    <div class="featured-agency-logo">
+                        <img [src]="agency.logoUrl" [alt]="agency.name + ' logo'">
+                    </div>
+                    <h3>{{agency.name}}</h3>
+                    <div class="agency-rating">
+                        <div class="stars">
+                            <svg *ngFor="let star of [1,2,3,4,5]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                [ngClass]="{'filled': star <= agency.rating, 'half-filled': star - 0.5 <= agency.rating && star > agency.rating}">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                </polygon>
+                            </svg>
+                        </div>
+                        <span>{{agency.rating.toFixed(1)}} ({{agency.reviewCount}})</span>
+                    </div>
+                    <p class="agency-description">{{agency.description}}</p>
+                    <div class="agency-categories">
+                        <span *ngFor="let category of agency.categories" class="category-tag">{{category}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="agencies-grid">
+        <div *ngIf="filteredAgencies.length === 0" class="no-results">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+            <h3>No agencies found</h3>
+            <p>Try adjusting your filters or search terms</p>
+        </div>
+
+        <div *ngFor="let agency of filteredAgencies" class="agency-card" [routerLink]="['/agency', agency.id]">
+            <div class="agency-logo">
+                <img [src]="agency.logoUrl" [alt]="agency.name + ' logo'">
+                <div *ngIf="agency.verified" class="verified-badge" title="Verified Agency">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                </div>
+            </div>
+            <div class="agency-info">
+                <h3>{{agency.name}}</h3>
+                <p class="agency-location">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    {{agency.location}}
+                </p>
+                <div class="agency-rating">
+                    <div class="stars">
+                        <svg *ngFor="let star of [1,2,3,4,5]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round"
+                            [ngClass]="{'filled': star <= agency.rating, 'half-filled': star - 0.5 <= agency.rating && star > agency.rating}">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                            </polygon>
+                        </svg>
+                    </div>
+                    <span>{{agency.rating.toFixed(1)}} ({{agency.reviewCount}})</span>
+                </div>
+                <p class="agency-description">{{agency.description}}</p>
+                <div class="agency-categories">
+                    <span *ngFor="let category of agency.categories" class="category-tag">{{category}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagination" *ngIf="filteredAgencies.length > 0">
+        <button [disabled]="currentPage === 1" (click)="changePage(currentPage - 1)" class="pagination-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            Previous
+        </button>
+        <div class="page-numbers">
+            <button *ngFor="let page of getPageNumbers()" [class.active]="page === currentPage"
+                (click)="changePage(page)" class="page-number">
+                {{page}}
+            </button>
+        </div>
+        <button [disabled]="currentPage === totalPages" (click)="changePage(currentPage + 1)" class="pagination-btn">
+            Next
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
+    </div>
+</div>

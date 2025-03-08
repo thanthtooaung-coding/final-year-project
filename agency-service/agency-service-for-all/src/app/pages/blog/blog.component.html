@@ -1,0 +1,115 @@
+<div class="blog-container">
+    <div class="blog-header">
+        <h1>{{websiteName}} Blog</h1>
+        <p>Insights, tips, and trends for businesses and agencies</p>
+
+        <div class="blog-search">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" [(ngModel)]="searchQuery" (ngModelChange)="applyFilters()"
+                placeholder="Search articles...">
+        </div>
+    </div>
+
+    <div class="blog-categories">
+        <button class="category-btn" [class.active]="selectedCategory === ''" (click)="selectCategory('')">
+            All
+        </button>
+        <button *ngFor="let category of categories" class="category-btn" [class.active]="selectedCategory === category"
+            (click)="selectCategory(category)">
+            {{category}}
+        </button>
+    </div>
+
+    <div class="featured-post" *ngIf="featuredPost && !searchQuery && !selectedCategory">
+        <div class="featured-post-image">
+            <img [src]="featuredPost.imageUrl" [alt]="featuredPost.title">
+            <div class="featured-badge">Featured</div>
+        </div>
+        <div class="featured-post-content">
+            <div class="post-meta">
+                <span class="post-category">{{featuredPost.category}}</span>
+                <span class="post-date">{{featuredPost.publishDate | date:'mediumDate'}}</span>
+                <span class="post-read-time">{{featuredPost.readTime}} min read</span>
+            </div>
+            <h2>{{featuredPost.title}}</h2>
+            <p>{{featuredPost.excerpt}}</p>
+            <div class="post-author">
+                <img [src]="featuredPost.author.avatarUrl" [alt]="featuredPost.author.name">
+                <div>
+                    <span class="author-name">{{featuredPost.author.name}}</span>
+                    <span class="author-role">{{featuredPost.author.role}}</span>
+                </div>
+            </div>
+            <a [routerLink]="['/blog', featuredPost.id]" class="read-more-btn">Read Article</a>
+        </div>
+    </div>
+
+    <div class="blog-grid">
+        <div *ngIf="filteredPosts.length === 0" class="no-posts">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+            <h3>No articles found</h3>
+            <p>Try adjusting your search or category filters</p>
+        </div>
+
+        <div *ngFor="let post of filteredPosts" class="blog-card" [routerLink]="['/blog', post.id]">
+            <div class="blog-card-image">
+                <img [src]="post.imageUrl" [alt]="post.title">
+                <span class="post-category">{{post.category}}</span>
+            </div>
+            <div class="blog-card-content">
+                <div class="post-meta">
+                    <span class="post-date">{{post.publishDate | date:'mediumDate'}}</span>
+                    <span class="post-read-time">{{post.readTime}} min read</span>
+                </div>
+                <h3>{{post.title}}</h3>
+                <p>{{post.excerpt}}</p>
+                <div class="post-author">
+                    <img [src]="post.author.avatarUrl" [alt]="post.author.name">
+                    <span>{{post.author.name}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagination" *ngIf="filteredPosts.length > 0">
+        <button [disabled]="currentPage === 1" (click)="changePage(currentPage - 1)" class="pagination-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            Previous
+        </button>
+        <div class="page-numbers">
+            <button *ngFor="let page of getPageNumbers()" [class.active]="page === currentPage"
+                (click)="changePage(page)" class="page-number">
+                {{page}}
+            </button>
+        </div>
+        <button [disabled]="currentPage === totalPages" (click)="changePage(currentPage + 1)" class="pagination-btn">
+            Next
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
+    </div>
+
+    <div class="newsletter-section">
+        <div class="newsletter-content">
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Get the latest industry insights and trends delivered to your inbox</p>
+            <div class="newsletter-form">
+                <input type="email" placeholder="Your email address">
+                <button class="subscribe-btn">Subscribe</button>
+            </div>
+        </div>
+    </div>
+</div>

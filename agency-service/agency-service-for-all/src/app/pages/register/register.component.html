@@ -1,0 +1,89 @@
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h1>Create an Account</h1>
+            <p>Join our platform to connect with top agencies</p>
+        </div>
+
+        <form class="auth-form" (ngSubmit)="register()">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" [(ngModel)]="name" placeholder="Your full name" required />
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" [(ngModel)]="email" placeholder="your@email.com" required />
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="password-input">
+                    <input [type]="showPassword ? 'text' : 'password'" id="password" name="password"
+                        [(ngModel)]="password" placeholder="Create a password" required />
+                    <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+                        <svg *ngIf="!showPassword" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        <svg *ngIf="showPassword" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24">
+                            </path>
+                            <line x1="1" y1="1" x2="23" y2="23"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Account Type</label>
+                <div class="account-type-selector">
+                    <div class="account-type-option" [class.selected]="accountType === 'customer'"
+                        (click)="accountType = 'customer'">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <div>
+                            <h3>Customer</h3>
+                            <p>Find and connect with agencies</p>
+                        </div>
+                    </div>
+
+                    <div class="account-type-option" [class.selected]="accountType === 'agency'"
+                        (click)="accountType = 'agency'">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                        <div>
+                            <h3>Agency</h3>
+                            <p>Showcase your services</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="terms-checkbox">
+                    <input type="checkbox" id="terms" name="terms" required />
+                    <label for="terms">I agree to the <a href="#">Terms of Service</a> and
+                        <a href="#">Privacy Policy</a></label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+                Create Account
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Already have an account? <a routerLink="/login">Sign in</a></p>
+        </div>
+    </div>
+</div>

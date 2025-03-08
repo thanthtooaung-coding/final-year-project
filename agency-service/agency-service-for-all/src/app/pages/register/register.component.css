@@ -1,0 +1,179 @@
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+  
+  .auth-card {
+    background-color: var(--background-light);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    width: 100%;
+    max-width: 500px;
+    padding: 2.5rem;
+  }
+  
+  .auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .auth-header h1 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .auth-header p {
+    color: var(--text-secondary);
+  }
+  
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .form-group label {
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+  
+  .form-group input {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    transition: border-color var(--transition-fast);
+  }
+  
+  .form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+  }
+  
+  .password-input {
+    position: relative;
+  }
+  
+  .password-toggle {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+  }
+  
+  .password-toggle svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  
+  .account-type-selector {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .account-type-option {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+  
+  .account-type-option.selected {
+    border-color: var(--primary-color);
+    background-color: rgba(79, 70, 229, 0.05);
+  }
+  
+  .account-type-option svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--primary-color);
+  }
+  
+  .account-type-option h3 {
+    font-size: 1rem;
+    margin: 0 0 0.25rem 0;
+  }
+  
+  .account-type-option p {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+  
+  .terms-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+  }
+  
+  .terms-checkbox input {
+    margin-top: 0.25rem;
+  }
+  
+  .terms-checkbox a {
+    color: var(--primary-color);
+  }
+  
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    border: none;
+  }
+  
+  .btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  .btn-block {
+    width: 100%;
+  }
+  
+  .auth-footer {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+  
+  .auth-footer a {
+    color: var(--primary-color);
+    font-weight: 500;
+  }
+  
+  @media (max-width: 640px) {
+    .account-type-selector {
+      flex-direction: column;
+    }
+  }

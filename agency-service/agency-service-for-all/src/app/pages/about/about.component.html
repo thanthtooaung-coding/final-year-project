@@ -1,0 +1,144 @@
+<div class="about-container">
+    <section class="about-hero">
+        <div class="about-hero-content">
+            <h1 style="color: #fff;">About {{websiteName}}</h1>
+            <p class="subtitle">Connecting businesses with top agencies since {{companyStartYear}}</p>
+        </div>
+    </section>
+
+    <section class="about-mission">
+        <div class="mission-content">
+            <div class="mission-text">
+                <h2>Our Mission</h2>
+                <p>{{websiteName}} {{missionPart1}}</p>
+                <p>{{missionPart2}}</p>
+            </div>
+            <div class="mission-image">
+                <img src="/team-meeting.jpeg" alt="{{websiteName}} team meeting">
+            </div>
+        </div>
+    </section>
+
+    <section class="about-story">
+        <div class="section-header">
+            <h2>Our Story</h2>
+            <div class="section-divider"></div>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item" *ngFor="let item of timelineItems; let even = even">
+                <div class="timeline-marker">
+                    <span>{{item.year}}</span>
+                </div>
+                <div class="timeline-content" [attr.data-aos]="'fade-' + (even ? 'left' : 'right')">
+                    <h3>{{item.title}}</h3>
+                    <p>{{item.description}}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-values">
+        <h2>Our Core Values</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                </div>
+                <h3>Quality</h3>
+                <p>We maintain high standards for the agencies on our platform, ensuring businesses receive exceptional
+                    service.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="3" y1="9" x2="21" y2="9"></line>
+                        <line x1="9" y1="21" x2="9" y2="9"></line>
+                    </svg>
+                </div>
+                <h3>Transparency</h3>
+                <p>We believe in open communication and honest feedback between businesses and agencies.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+                <h3>Community</h3>
+                <p>We foster a collaborative community where knowledge sharing and mutual growth are encouraged.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                        <polyline points="17 6 23 6 23 12"></polyline>
+                    </svg>
+                </div>
+                <h3>Innovation</h3>
+                <p>We continuously improve our platform and services to better serve our users' evolving needs.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-team">
+        <h2>Meet Our Leadership Team</h2>
+        <div class="team-grid">
+            <div class="team-member" *ngFor="let member of teamMembers">
+                <div class="member-photo">
+                    <img [src]="member.photoUrl" [alt]="member.name">
+                </div>
+                <h3>{{member.name}}</h3>
+                <p class="member-title">{{member.title}}</p>
+                <p class="member-bio">{{member.bio}}</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section class="about-stats">
+      <div class="stat-item">
+        <div class="stat-value">1,500+</div>
+        <div class="stat-label">Verified Agencies</div>
+      </div>
+      
+      <div class="stat-item">
+        <div class="stat-value">10,000+</div>
+        <div class="stat-label">Businesses Served</div>
+      </div>
+      
+      <div class="stat-item">
+        <div class="stat-value">25,000+</div>
+        <div class="stat-label">Successful Projects</div>
+      </div>
+      
+      <div class="stat-item">
+        <div class="stat-value">95%</div>
+        <div class="stat-label">Client Satisfaction</div>
+      </div>
+    </section> -->
+
+    <section class="about-cta">
+        <div class="cta-content">
+            <h2>Ready to find your perfect agency match?</h2>
+            <p>Join thousands of businesses that have found success through {{websiteName}}.</p>
+            <div class="cta-buttons">
+                <a routerLink="/register" class="btn btn-primary">Get Started</a>
+                <a routerLink="/agencies" class="btn btn-outline">Browse Agencies</a>
+            </div>
+        </div>
+    </section>
+</div>

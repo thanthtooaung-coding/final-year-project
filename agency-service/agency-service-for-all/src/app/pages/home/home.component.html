@@ -4,8 +4,8 @@
       <h1 class="animate-fade-in">Connect with Top Agencies</h1>
       <p class="animate-fade-in">Discover services, share feedback, and collaborate with the best agencies in the industry</p>
       <div class="hero-buttons animate-fade-in">
-        <button class="btn btn-primary">Explore Services</button>
-        <button class="btn btn-outline">How It Works</button>
+        <button class="btn btn-primary" routerLink="/services">Explore Services</button>
+        <button class="btn btn-outline" routerLink="/about">How It Works</button>
       </div>
     </div>
     <div class="hero-image animate-slide-up">
@@ -28,7 +28,7 @@
   <section class="posts-section">
     <div class="section-header">
       <h2>Latest Posts</h2>
-      <a href="#" class="view-all">View All <span class="arrow">→</span></a>
+      <a routerLink="/posts" class="view-all">View All <span class="arrow">→</span></a>
     </div>
     
     <div *ngIf="isLoading" class="loading-spinner">
@@ -92,7 +92,7 @@
 
   <section class="features-section">
     <div class="section-header text-center">
-      <h2>Why Choose Agency Connect</h2>
+      <h2>Why Choose {{websiteName}}</h2>
       <p>The best platform for finding and collaborating with agencies</p>
     </div>
     
@@ -150,7 +150,7 @@
     <div class="cta-content">
       <h2>Ready to find the perfect agency for your project?</h2>
       <p>Join thousands of businesses that have found their ideal agency partners through our platform.</p>
-      <button class="btn btn-primary" style="color: white;">Get Started Today</button>
+      <button class="btn btn-primary" routerLink="/register" style="color: white;">Get Started Today</button>
     </div>
   </section>
 </div>

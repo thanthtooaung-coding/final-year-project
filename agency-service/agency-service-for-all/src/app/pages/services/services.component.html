@@ -1,0 +1,134 @@
+<div class="services-container">
+    <div class="page-header">
+        <h1>Explore Services</h1>
+        <p>Find professional services to help your business grow</p>
+    </div>
+
+    <div class="services-hero">
+        <div class="services-hero-content">
+            <h2>What service are you looking for?</h2>
+            <div class="service-search">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" [(ngModel)]="searchQuery" (ngModelChange)="applyFilters()"
+                    placeholder="Search for a service...">
+            </div>
+            <div class="popular-categories">
+                <span>Popular:</span>
+                <button *ngFor="let category of popularCategories" class="category-pill"
+                    (click)="selectCategory(category)">
+                    {{category}}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="services-filter">
+        <div class="filter-tabs">
+            <button *ngFor="let category of allCategoriesWithAll" class="filter-tab"
+                [class.active]="selectedCategory === category || (category === 'All' && !selectedCategory)"
+                (click)="selectCategory(category === 'All' ? '' : category)">
+                {{category}}
+            </button>
+        </div>
+
+        <div class="filter-sort">
+            <label for="sort">Sort by:</label>
+            <select id="sort" [(ngModel)]="sortBy" (ngModelChange)="applyFilters()">
+                <option value="featured">Featured</option>
+                <option value="newest">Newest</option>
+                <option value="priceAsc">Price: Low to High</option>
+                <option value="priceDesc">Price: High to Low</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="featured-services" *ngIf="featuredServices.length > 0 && !searchQuery && !selectedCategory">
+        <h2>Featured Services</h2>
+        <div class="featured-services-grid">
+            <div *ngFor="let service of featuredServices" class="featured-service-card"
+                [routerLink]="['/post', service.id]">
+                <div class="featured-service-image">
+                    <img [src]="service.imageUrl" [alt]="service.title">
+                    <div class="featured-badge">Featured</div>
+                    <div class="service-category">{{service.category}}</div>
+                </div>
+                <div class="featured-service-content">
+                    <div class="agency-info">
+                        <img [src]="service.agency.logoUrl" [alt]="service.agency.name" class="agency-logo">
+                        <span>{{service.agency.name}}</span>
+                    </div>
+                    <h3>{{service.title}}</h3>
+                    <p>{{service.description}}</p>
+                    <div class="service-footer">
+                        <span class="price-range">{{service.priceRange}}</span>
+                        <button class="view-details-btn">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="services-results">
+        <h2 *ngIf="searchQuery || selectedCategory">
+            {{ searchResultsTitle }}
+        </h2>
+
+        <div *ngIf="filteredServices.length === 0" class="no-results">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+            <h3>No services found</h3>
+            <p>Try adjusting your filters or search terms</p>
+        </div>
+
+        <div class="services-grid">
+            <div *ngFor="let service of filteredServices" class="service-card" [routerLink]="['/post', service.id]">
+                <div class="service-image">
+                    <img [src]="service.imageUrl" [alt]="service.title">
+                    <div class="service-category">{{service.category}}</div>
+                </div>
+                <div class="service-content">
+                    <div class="agency-info">
+                        <img [src]="service.agency.logoUrl" [alt]="service.agency.name" class="agency-logo">
+                        <span>{{service.agency.name}}</span>
+                    </div>
+                    <h3>{{service.title}}</h3>
+                    <p>{{service.description}}</p>
+                    <div class="service-footer">
+                        <span class="price-range">{{service.priceRange}}</span>
+                        <button class="view-details-btn">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagination" *ngIf="filteredServices.length > 0">
+        <button [disabled]="currentPage === 1" (click)="changePage(currentPage - 1)" class="pagination-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            Previous
+        </button>
+        <div class="page-numbers">
+            <button *ngFor="let page of getPageNumbers()" [class.active]="page === currentPage"
+                (click)="changePage(page)" class="page-number">
+                {{page}}
+            </button>
+        </div>
+        <button [disabled]="currentPage === totalPages" (click)="changePage(currentPage + 1)" class="pagination-btn">
+            Next
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
+    </div>
+</div>

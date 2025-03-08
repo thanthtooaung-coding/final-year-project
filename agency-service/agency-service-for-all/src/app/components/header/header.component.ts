@@ -3,8 +3,9 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatMenuModule } from "@angular/material/menu";
-import { Router } from "@angular/router";
+import { RouterLink } from "@angular/router";
 import { CommonModule } from '@angular/common';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-header',
@@ -13,12 +14,21 @@ import { CommonModule } from '@angular/common';
     MatIconModule,
     MatFormFieldModule,
     MatMenuModule,
-    CommonModule
+    CommonModule,
+    RouterLink
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  websiteName: string = "Default Website Name";
+
+  constructor(private configService: ConfigService) {
+    this.configService.websiteName$.subscribe(name => {
+      this.websiteName = name;
+    });
+  }
+  
   isMenuOpen = false
   isUserMenuOpen = false
 

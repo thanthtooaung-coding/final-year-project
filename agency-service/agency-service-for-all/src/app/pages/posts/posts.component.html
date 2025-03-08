@@ -1,0 +1,126 @@
+<div class="posts-container">
+    <div class="page-header">
+        <h1>All Posts</h1>
+        <p>Discover services and content from our agency partners</p>
+    </div>
+
+    <div class="filter-section">
+        <div class="search-bar">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" [(ngModel)]="searchQuery" (ngModelChange)="applyFilters()" placeholder="Search posts...">
+        </div>
+
+        <div class="filter-controls">
+            <div class="category-filter">
+                <label>Category</label>
+                <select [(ngModel)]="selectedCategory" (ngModelChange)="applyFilters()">
+                    <option value="">All Categories</option>
+                    <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+                </select>
+            </div>
+
+            <div class="sort-filter">
+                <label>Sort By</label>
+                <select [(ngModel)]="sortBy" (ngModelChange)="applyFilters()">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="popular">Most Popular</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="isLoading" class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Loading posts...</p>
+    </div>
+
+    <div *ngIf="!isLoading && filteredPosts.length === 0" class="no-posts">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M8 15h8"></path>
+            <path d="M9 9h.01"></path>
+            <path d="M15 9h.01"></path>
+        </svg>
+        <p>No posts found matching your criteria</p>
+        <button class="btn btn-primary" (click)="resetFilters()">Reset Filters</button>
+    </div>
+
+    <div class="posts-grid">
+        <div *ngFor="let post of filteredPosts" class="post-card">
+            <div class="post-image">
+                <img [src]="post.imageUrl" [alt]="post.title">
+                <div class="post-category">{{post.category}}</div>
+            </div>
+            <div class="post-content">
+                <div class="post-meta">
+                    <div class="agency-info">
+                        <img [src]="post.agency.logoUrl" [alt]="post.agency.name" class="agency-logo">
+                        <span>{{post.agency.name}}</span>
+                    </div>
+                    <span class="post-date">{{post.createdAt | date}}</span>
+                </div>
+                <h3 class="post-title">{{post.title}}</h3>
+                <p class="post-description">{{post.description}}</p>
+                <div class="post-actions">
+                    <a [routerLink]="['/post', post.id]" class="btn btn-text">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        View Details
+                    </a>
+                    <div class="post-stats">
+                        <div class="stat">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3">
+                                </path>
+                            </svg>
+                            {{post.likes}}
+                        </div>
+                        <div class="stat">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                            {{post.commentCount}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagination" *ngIf="filteredPosts.length > 0">
+        <button [disabled]="currentPage === 1" (click)="changePage(currentPage - 1)" class="pagination-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            Previous
+        </button>
+        <div class="page-numbers">
+            <button *ngFor="let page of getPageNumbers()" [class.active]="page === currentPage"
+                (click)="changePage(page)" class="page-number">
+                {{page}}
+            </button>
+        </div>
+        <button [disabled]="currentPage === totalPages" (click)="changePage(currentPage + 1)" class="pagination-btn">
+            Next
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
+    </div>
+</div>

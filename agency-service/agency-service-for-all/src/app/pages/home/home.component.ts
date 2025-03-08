@@ -7,6 +7,7 @@ import { PostCardComponent } from "../../components/post-card/post-card.componen
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { CommonModule } from "@angular/common"
 import { RouterLink } from "@angular/router"
+import { ConfigService } from "../../services/config.service"
 
 @Component({
   selector: "app-home",
@@ -20,7 +21,12 @@ export class HomeComponent implements OnInit {
   selectedCategory = "All"
   isLoading = true
 
-  constructor(private postService: PostService) {}
+  websiteName: string = "Default Website Name";
+  constructor(private postService: PostService, private configService: ConfigService) {
+    this.configService.websiteName$.subscribe(name => {
+      this.websiteName = name;
+    });
+  }
 
   ngOnInit(): void {
     this.loadPosts()
