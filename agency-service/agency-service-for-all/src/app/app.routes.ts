@@ -1,9 +1,8 @@
-import { PostsComponent } from './pages/posts/posts.component';
 import type { Routes } from "@angular/router"
 import { HomeComponent } from "./pages/home/home.component"
 import { PostDetailComponent } from "./pages/post-detail/post-detail.component"
 
-export const routes: Routes = [
+const childRoutes: Routes = [
   {
     path: "",
     component: HomeComponent,
@@ -56,6 +55,18 @@ export const routes: Routes = [
   {
     path: "posts",
     loadComponent: () => import("./pages/posts/posts.component").then((m) => m.PostsComponent),
+  },
+]
+
+export const routes: Routes = [
+  {
+    path: "",
+    redirectTo: "agency-connect",
+    pathMatch: "full",
+  },
+  {
+    path: ":siteName",
+    children: childRoutes,
   },
 ]
 

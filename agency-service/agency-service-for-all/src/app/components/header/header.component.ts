@@ -21,13 +21,16 @@ import { ConfigService } from '../../services/config.service';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  websiteName: string = "Default Website Name";
-
-  constructor(private configService: ConfigService) {
-    this.configService.websiteName$.subscribe(name => {
-      this.websiteName = name;
-    });
+  constructor(private configService: ConfigService) {}
+  get websiteName(): string {
+    return this.configService.getWebsiteName()
   }
+
+  get websiteUrl(): string {
+    return "/" + this.configService.getCurrentSiteName()
+  }  
+
+
   
   isMenuOpen = false
   isUserMenuOpen = false

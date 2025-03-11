@@ -88,12 +88,10 @@ const COMPANY_START_YEAR = 2015
   styleUrl: "./about.component.css",
 })
 export class AboutComponent {
-  websiteName: string = "Default Website Name";
-
-  constructor(private configService: ConfigService) {
-    this.configService.websiteName$.subscribe(name => {
-      this.websiteName = name;
-    });
+  constructor(private configService: ConfigService) {}
+  
+  get websiteName(): string {
+    return this.configService.getWebsiteName()
   }
   
   timelineItems = TIMELINE_DATA

@@ -11,13 +11,10 @@ import { ConfigService } from '../../services/config.service';
   styleUrl: './footer.component.css'
 })
 export class FooterComponent {
-  currentYear = new Date().getFullYear()
-
-  websiteName: string = "Default Website Name";
+  currentYear = new Date().getFullYear()  
   
-  constructor(private configService: ConfigService) {
-    this.configService.websiteName$.subscribe(name => {
-      this.websiteName = name;
-    });
+  constructor(private configService: ConfigService) {}
+  get websiteName(): string {
+    return this.configService.getWebsiteName()
   }
 }

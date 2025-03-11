@@ -20,12 +20,11 @@ export class HomeComponent implements OnInit {
   categories: string[] = ["All", "Marketing", "Design", "Development", "Consulting", "Finance"]
   selectedCategory = "All"
   isLoading = true
+  
+  constructor(private postService: PostService, private configService: ConfigService) {}
 
-  websiteName: string = "Default Website Name";
-  constructor(private postService: PostService, private configService: ConfigService) {
-    this.configService.websiteName$.subscribe(name => {
-      this.websiteName = name;
-    });
+  get websiteName(): string {
+    return this.configService.getWebsiteName()
   }
 
   ngOnInit(): void {

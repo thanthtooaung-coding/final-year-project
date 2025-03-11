@@ -1,6 +1,6 @@
 <header class="header">
   <div class="container">
-    <a class="logo" routerLink="/">
+    <a class="logo" routerLink="{{websiteUrl}}">
       <div class="logo-icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
           stroke-linecap="round" stroke-linejoin="round">
@@ -12,10 +12,10 @@
     </a>
 
     <div class="nav-links">
-      <a routerLink="/agencies" class="nav-link">Agencies</a>
-      <a routerLink="/services" class="nav-link">Services</a>
-      <a routerLink="/about" class="nav-link">About</a>
-      <a routerLink="/blog" class="nav-link">Blog</a>
+      <a routerLink="{{websiteUrl}}/agencies" class="nav-link">Agencies</a>
+      <a routerLink="{{websiteUrl}}/services" class="nav-link">Services</a>
+      <a routerLink="{{websiteUrl}}/about" class="nav-link">About</a>
+      <a routerLink="{{websiteUrl}}/blog" class="nav-link">Blog</a>
     </div>
 
     <div class="search-bar">
@@ -31,7 +31,7 @@
 
     <div class="nav-actions">
       <ng-container *ngIf="isLoggedIn(); else loginButtons">
-        <button class="icon-button notification-btn" routerLink="/messages">
+        <button class="icon-button notification-btn" routerLink="{{websiteUrl}}/messages">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
@@ -48,7 +48,7 @@
             </svg>
           </button>
           <div class="dropdown-menu" [class.active]="isUserMenuOpen">
-            <a routerLink="/profile" class="dropdown-item">
+            <a routerLink="{{websiteUrl}}/profile" class="dropdown-item">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -56,7 +56,7 @@
               </svg>
               <span>Profile</span>
             </a>
-            <a *ngIf="isAgency()" routerLink="/create-post" class="dropdown-item">
+            <a *ngIf="isAgency()" routerLink="{{websiteUrl}}/create-post" class="dropdown-item">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
@@ -64,7 +64,7 @@
               </svg>
               <span>Create Post</span>
             </a>
-            <a routerLink="/settings" class="dropdown-item">
+            <a routerLink="{{websiteUrl}}/settings" class="dropdown-item">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="3"></circle>
@@ -89,7 +89,7 @@
       </ng-container>
 
       <ng-template #loginButtons>
-        <a routerLink='/login' class="btn btn-text">Login</a>
+        <a routerLink='{{websiteUrl}}/login' class="btn btn-text">Login</a>
         <a routerLink="/register" class="btn btn-primary">Register</a>
       </ng-template>
     </div>
@@ -122,15 +122,15 @@
     </div>
 
     <div class="mobile-nav-links">
-      <a routerLink="/agencies" class="mobile-nav-link">Agencies</a>
-      <a routerLink="/services" class="mobile-nav-link">Services</a>
-      <a routerLink="/about" class="mobile-nav-link">About</a>
-      <a routerLink="/blog" class="mobile-nav-link">Blog</a>
+      <a routerLink="{{websiteUrl}}/agencies" class="mobile-nav-link">Agencies</a>
+      <a routerLink="{{websiteUrl}}/services" class="mobile-nav-link">Services</a>
+      <a routerLink="{{websiteUrl}}/about" class="mobile-nav-link">About</a>
+      <a routerLink="{{websiteUrl}}/blog" class="mobile-nav-link">Blog</a>
     </div>
 
     <div class="mobile-nav-actions">
       <ng-container *ngIf="isLoggedIn(); else mobileLoginButtons">
-        <a routerLink="/profile" class="mobile-nav-item">
+        <a routerLink="{{websiteUrl}}/profile" class="mobile-nav-item">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -138,7 +138,7 @@
           </svg>
           <span>Profile</span>
         </a>
-        <a routerLink="/messages" class="mobile-nav-item">
+        <a routerLink="{{websiteUrl}}/messages" class="mobile-nav-item">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
@@ -146,7 +146,7 @@
           <span>Messages</span>
           <span class="badge">3</span>
         </a>
-        <a *ngIf="isAgency()" routerLink="/create-post" class="mobile-nav-item">
+        <a *ngIf="isAgency()" routerLink="{{websiteUrl}}/create-post" class="mobile-nav-item">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
@@ -154,7 +154,7 @@
           </svg>
           <span>Create Post</span>
         </a>
-        <a routerLink="/settings" class="mobile-nav-item">
+        <a routerLink="{{websiteUrl}}/settings" class="mobile-nav-item">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="3"></circle>
@@ -178,8 +178,8 @@
 
       <ng-template #mobileLoginButtons>
         <div class="mobile-auth-buttons">
-          <a routerLink="/login" class="btn btn-outline btn-block">Login</a>
-          <a routerLink="/register" class="btn btn-primary btn-block">Register</a>
+          <a routerLink="{{websiteUrl}}/login" class="btn btn-outline btn-block">Login</a>
+          <a routerLink="{{websiteUrl}}/register" class="btn btn-primary btn-block">Register</a>
         </div>
       </ng-template>
     </div>

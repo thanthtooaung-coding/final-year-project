@@ -4,6 +4,7 @@ import { RouterOutlet } from "@angular/router"
 import { HeaderComponent } from "./components/header/header.component"
 import { FooterComponent } from "./components/footer/footer.component"
 import { ConfigService } from "./services/config.service"
+import { Title } from "@angular/platform-browser"
 
 @Component({
   selector: "app-root",
@@ -15,13 +16,15 @@ import { ConfigService } from "./services/config.service"
 export class AppComponent implements OnInit {
   title = "agency-service"
 
-  constructor(private configService: ConfigService) {}
+  constructor(private configService: ConfigService, private titleService: Title) {}
 
   ngOnInit() {
-    this.configService.setWebsiteName("Agency Connect");
-    // this.configService.fetchWebsiteName().subscribe(response => {
-    //   this.configService.setWebsiteName(response.name);
-    // });
+    // this.configService.setWebsiteName("Agency Connect");
+    // this.titleService.setTitle(this.configService.getWebsiteName());
+    this.configService.fetchWebsiteName().subscribe((response) => {
+      this.configService.setWebsiteName(response.name)
+      this.titleService.setTitle(this.configService.getWebsiteName())
+    })
   }
 }
 
